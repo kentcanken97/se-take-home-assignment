@@ -1,8 +1,13 @@
 package obj;
 
+import java.util.LinkedList;
+
 public class Manager {
     
     private static Manager single_instance = null;
+
+    private LinkedList<Order> listNormalOrder = new LinkedList<Order>();
+    private LinkedList<Order> listVIPOrder = new LinkedList<Order>(); 
 
     private Manager(){   }
 
@@ -15,11 +20,15 @@ public class Manager {
     }
 
     public void addNormalOrder(){
-        System.out.println("Add Normal Order in manager");
+        Order order = new Order(0,0);
+        listNormalOrder.add(order);
+        System.out.println("Add Normal Order to list. Current number of normal order pending is: " + listNormalOrder.size());
     }
 
     public void addVIPOrder(){
-        System.out.println("Add Vip Order in manager");
+        Order order = new Order(1,0);
+        listVIPOrder.add(order);
+        System.out.println("Add Vip Order to list. Current number of VIP order pending is: " + listVIPOrder.size());
     }
 }
 

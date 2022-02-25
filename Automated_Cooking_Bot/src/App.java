@@ -32,7 +32,7 @@ public class App {
                     //System.out.print("add Normal Order\n\n");
                     break;
 
-                case "New Vip Order":
+                case "New VIP Order":
                     mgr.addVIPOrder();
                     //System.out.print("add Vip Order\n\n");
                     break;
