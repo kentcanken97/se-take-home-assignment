@@ -7,7 +7,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner (System.in);
 
-        Manager mgr = Manager.getInstance(); //singleton manager
+        Manager mgr = Manager.getInstance(); 
         String strCommand = "";
     
         System.out.print("*********************************\n" 

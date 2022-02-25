@@ -11,6 +11,8 @@ public class Manager {
 
     private Manager(){   }
 
+    //Declare the manager for order if the variable is not declared.
+    //This is a singleton class.
     public static Manager getInstance(){
         if(single_instance == null){
             single_instance = new Manager();
