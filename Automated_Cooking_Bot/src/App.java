@@ -1,9 +1,13 @@
 import java.util.Scanner;
 
+import obj.Manager;
+
 public class App {
 
     public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner (System.in);
+
+        Manager mgr = Manager.getInstance(); //singleton manager
         String strCommand = "";
     
         System.out.print("*********************************\n" 
@@ -24,11 +28,13 @@ public class App {
 
             switch(strCommand) {
                 case "New Normal Order":
-                    System.out.print("add Normal Order\n\n");
+                    mgr.addNormalOrder();
+                    //System.out.print("add Normal Order\n\n");
                     break;
 
                 case "New Vip Order":
-                    System.out.print("add Vip Order\n\n");
+                    mgr.addVIPOrder();
+                    //System.out.print("add Vip Order\n\n");
                     break;
 
                 case "+ Bot":
