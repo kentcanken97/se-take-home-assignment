@@ -9,7 +9,7 @@ public class App {
         System.out.print("*********************************\n" 
                         + "* Automated Cooking Robot Start *\n"
                         + "*********************************\n"
-                        + "\n\n");
+                        + "\n");
 
         //While loop for cli command
         lblInputLoop: while(true) {
@@ -19,7 +19,7 @@ public class App {
                                 + "+ Bot              add a new Bot.\n"
                                 + "- Bot              remove a bot.\n"
                                 + "Quit               quit cooking bot program.\n"
-                                + "Your Input:\n\n");
+                                + "Your Input:\n");
             strCommand = scan.nextLine();
 
             switch(strCommand) {
@@ -43,7 +43,7 @@ public class App {
                     break lblInputLoop;
 
                 default:
-                    System.out.print("The command you had enter is not in the system.\n");
+                    System.out.print("\nThe command you had enter is not in the system.\n");
             }
         }//while end
 
