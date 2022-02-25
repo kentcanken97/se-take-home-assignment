@@ -1,6 +1,7 @@
 package obj;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class Manager {
     
@@ -8,6 +9,7 @@ public class Manager {
 
     private LinkedList<Order> listNormalOrder = new LinkedList<Order>();
     private LinkedList<Order> listVIPOrder = new LinkedList<Order>(); 
+    private Stack<Bot> stkBot = new Stack<Bot>();
 
     private Manager(){   }
 
