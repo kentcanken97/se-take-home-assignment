@@ -36,6 +36,10 @@ public class Controller {
                             + ". "
                             + (listPendingOrder.size()-1)
                             + " order infront of your order.\n");
+
+        if(assignOrder(order)){
+            listPendingOrder.remove(order);
+        }
     }
 
     public void addVIPOrder(){
@@ -48,6 +52,10 @@ public class Controller {
                             + ". "
                             + intQueueNum
                             + " order infront of your order.\n");
+
+        if(assignOrder(order)){
+            listPendingOrder.remove(order);
+        }
     }
 
     private int addVIPOdrInfrontList(Order order){
@@ -86,6 +94,7 @@ public class Controller {
         Bot bot = new Bot();
         stkBot.push(bot);
         System.out.println("Added new bot to the workforce.");
+        requestOrder(bot);
     }
 
     public void removeBot(){
@@ -95,6 +104,53 @@ public class Controller {
             stkBot.pop();
             System.out.println("Removed the newest bot from workforce.");
         } 
+    }
+
+    public void taskComplete(Order order){
+        listCompletedOrder.add(order);
+        System.out.println("OrderID " 
+                            + order.intOrderID
+                            + " completed cooking.");
+    }
+
+    public boolean assignOrder(Order order){
+        Bot bot = chkPendingBot();
+        if(bot != null){
+            bot.taskCookOrder(order);
+            System.out.println("OrderID " + order.intOrderID + " assigned to bot.");
+            return true;
+
+        }else{
+            System.out.println("No pending bot available.");
+        }
+        return false;
+    }
+
+    public void assignOrder(Order order, Bot bot){
+        bot.taskCookOrder(order);
+        System.out.println("OrderID " + order.intOrderID + " assigned to bot.");
+    }
+
+    //Bot with no job request for job in the listPendingOrder
+    public void requestOrder(Bot bot){
+        if(listPendingOrder.isEmpty()==false){
+            Order order = listPendingOrder.removeFirst();
+            assignOrder(order,bot);
+        }
+        
+    }
+
+    private Bot chkPendingBot(){
+        Bot bot = null;
+
+        for(int i = 0; i < stkBot.size(); i++ ){
+            if(stkBot.elementAt(i).intWorkingStatus == 0){
+                bot = stkBot.elementAt(i);
+                break;
+            }
+        }
+
+        return bot;
     }
 }
 
