@@ -38,11 +38,13 @@ public class App {
                     break;
 
                 case "+ Bot":
-                    System.out.print("add bot\n\n");
+                    ctrler.addBot();
+                    //System.out.print("add bot\n\n");
                     break;
 
                 case "- Bot":
-                    System.out.print("remove bot\n\n");
+                    ctrler.removeBot();
+                    //System.out.print("remove bot\n\n");
                     break;
 
                 case "Quit":

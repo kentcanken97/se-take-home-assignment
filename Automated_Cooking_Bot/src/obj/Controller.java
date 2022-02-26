@@ -34,6 +34,21 @@ public class Controller {
         listVIPOrder.add(order);
         System.out.println("Add Vip Order to list. Current number of VIP order pending is: " + listVIPOrder.size());
     }
+
+    public void addBot(){
+        Bot bot = new Bot();
+        stkBot.push(bot);
+        System.out.println("Added new bot to the workforce.");
+    }
+
+    public void removeBot(){
+        if(stkBot.empty()){
+            System.out.println("The workforce is empty no bot can be removed.");
+        }else{
+            stkBot.pop();
+            System.out.println("Removed the newest bot from workforce.");
+        } 
+    }
 }
 
 
