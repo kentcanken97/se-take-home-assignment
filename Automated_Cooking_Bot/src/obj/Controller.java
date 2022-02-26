@@ -3,21 +3,21 @@ package obj;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class Manager {
+public class Controller {
     
-    private static Manager single_instance = null;
+    private static Controller single_instance = null;
 
     private LinkedList<Order> listNormalOrder = new LinkedList<Order>();
     private LinkedList<Order> listVIPOrder = new LinkedList<Order>(); 
     private Stack<Bot> stkBot = new Stack<Bot>();
 
-    private Manager(){   }
+    private Controller(){   }
 
     //Declare the manager for order if the variable is not declared.
     //This is a singleton class.
-    public static Manager getInstance(){
+    public static Controller getInstance(){
         if(single_instance == null){
-            single_instance = new Manager();
+            single_instance = new Controller();
         }
 
         return single_instance;

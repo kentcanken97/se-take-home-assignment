@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
-import obj.Manager;
+import obj.Controller;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner (System.in);
 
-        Manager mgr = Manager.getInstance(); 
+        Controller ctrler = Controller.getInstance(); 
         String strCommand = "";
     
         System.out.print("*********************************\n" 
@@ -28,12 +28,12 @@ public class App {
 
             switch(strCommand) {
                 case "New Normal Order":
-                    mgr.addNormalOrder();
+                    ctrler.addNormalOrder();
                     //System.out.print("add Normal Order\n\n");
                     break;
 
                 case "New VIP Order":
-                    mgr.addVIPOrder();
+                    ctrler.addVIPOrder();
                     //System.out.print("add Vip Order\n\n");
                     break;
 
@@ -49,7 +49,7 @@ public class App {
                     break lblInputLoop;
 
                 default:
-                    System.out.print("\nThe command you had enter is not in the system.\n");
+                    System.out.print("The command you had enter is not in the system.\n\n");
             }
         }//while end
 
