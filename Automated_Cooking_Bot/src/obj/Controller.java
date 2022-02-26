@@ -9,9 +9,9 @@ public class Controller {
 
     private int intOdrID = 1;
 
-    //private LinkedList<Order> listNormalOrder = new LinkedList<Order>();
-    //private LinkedList<Order> listVIPOrder = new LinkedList<Order>(); 
-    private LinkedList<Order> listOrder = new LinkedList<Order>(); 
+    private LinkedList<Order> listPendingOrder = new LinkedList<Order>(); 
+    private LinkedList<Order> listCompletedOrder = new LinkedList<Order>();
+
     private Stack<Bot> stkBot = new Stack<Bot>();
 
     private Controller(){   }
@@ -28,13 +28,13 @@ public class Controller {
 
     public void addNormalOrder(){
         Order order = new Order(intOdrID, false, 0);
-        listOrder.add(order);
+        listPendingOrder.add(order);
         this.intOdrID++;
         System.out.println("Add Normal Order to list. " 
                             + "Your OrderID: "
                             + order.intOrderID
                             + ". "
-                            + (listOrder.size()-1)
+                            + (listPendingOrder.size()-1)
                             + " order infront of your order.\n");
     }
 
@@ -54,11 +54,11 @@ public class Controller {
         int intFirstNumNormalOrder = findIndexOfFirstNormalOrder();
        
         if(intFirstNumNormalOrder == -1){
-            listOrder.addLast(order);
-            return listOrder.indexOf(order);
+            listPendingOrder.addLast(order);
+            return listPendingOrder.indexOf(order);
         } //Since whole list is VIP order just add to last
         else{
-            listOrder.add(intFirstNumNormalOrder, order);
+            listPendingOrder.add(intFirstNumNormalOrder, order);
         } //Add according to index
         
         return intFirstNumNormalOrder;
@@ -67,9 +67,9 @@ public class Controller {
     private int findIndexOfFirstNormalOrder(){
         int pointer = 0;
 
-        while(pointer < listOrder.size()){
+        while(pointer < listPendingOrder.size()){
             
-            if(listOrder.get(pointer).intLevel){
+            if(listPendingOrder.get(pointer).intLevel){
                 pointer++;
             }//if the order with this index is VIP
             else {
