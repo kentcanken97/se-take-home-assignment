@@ -7,7 +7,7 @@ public class Controller {
     
     private static Controller single_instance = null;
 
-    private int intOdrID = 0;
+    private int intOdrID = 1;
 
     //private LinkedList<Order> listNormalOrder = new LinkedList<Order>();
     //private LinkedList<Order> listVIPOrder = new LinkedList<Order>(); 
@@ -31,8 +31,11 @@ public class Controller {
         listOrder.add(order);
         this.intOdrID++;
         System.out.println("Add Normal Order to list. " 
+                            + "Your OrderID: "
+                            + order.intOrderID
+                            + ". "
                             + (listOrder.size()-1)
-                            + " order infront of your order.");
+                            + " order infront of your order.\n");
     }
 
     public void addVIPOrder(){
@@ -40,8 +43,11 @@ public class Controller {
         int intQueueNum = addVIPOdrInfrontList(order);
         this.intOdrID++;
         System.out.println("Add Vip Order to list. "
+                            + "Your OrderID: "
+                            + order.intOrderID
+                            + ". "
                             + intQueueNum
-                            + " order infront of your order.");
+                            + " order infront of your order.\n");
     }
 
     private int addVIPOdrInfrontList(Order order){
