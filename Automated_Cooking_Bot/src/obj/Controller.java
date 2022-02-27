@@ -16,7 +16,7 @@ public class Controller {
 
     private Controller(){   }
 
-    //Declare the manager for order if the variable is not declared.
+    //Declare the controller to manage order. If the variable is not declared declare it else return the declared controller.
     //This is a singleton class.
     public static Controller getInstance(){
         if(single_instance == null){
@@ -26,6 +26,8 @@ public class Controller {
         return single_instance;
     }
 
+    //Add normal order to pending list.
+    //Check if any pending bot available and assign order to bot.
     public void addNormalOrder(){
         Order order = new Order(intOdrID, false, 0);
         listPendingOrder.add(order);
@@ -42,6 +44,9 @@ public class Controller {
         }
     }
 
+
+    //Add VIP order to front of pending list.
+    //Check if any pending bot available and assign order to bot.
     public void addVIPOrder(){
         Order order = new Order(intOdrID, true, 0);
         int intQueueNum = addVIPOdrInfrontList(order);
@@ -58,6 +63,7 @@ public class Controller {
         }
     }
 
+    //Add VIP Order infront of normal order. While queue behind earlier created VIP.
     private int addVIPOdrInfrontList(Order order){
         int intFirstNumNormalOrder = findIndexOfFirstNormalOrder();
        
@@ -72,6 +78,7 @@ public class Controller {
         return intFirstNumNormalOrder;
     }
 
+    //Find the first present of normal order in pending list. 
     private int findIndexOfFirstNormalOrder(){
         int pointer = 0;
 
@@ -90,6 +97,7 @@ public class Controller {
         return pointer;
     }
 
+    //Add new bot to stack of bot and request for pending order to cook.
     public void addBot(){
         Bot bot = new Bot();
         stkBot.push(bot);
@@ -97,6 +105,8 @@ public class Controller {
         requestOrder(bot);
     }
 
+    //Remove newest bot from stack while check if bot currently cooking.
+    //If cooking force stop the task and place tthe order back in pending list.
     public void removeBot(){
         if(stkBot.empty()){
             System.out.println("The workforce is empty no bot can be removed.");
@@ -112,6 +122,7 @@ public class Controller {
         } 
     }
 
+    //Move completed task to Completed list and show message
     public void taskComplete(Order order){
         listCompletedOrder.add(order);
         System.out.println("OrderID " 
@@ -119,6 +130,7 @@ public class Controller {
                             + " completed cooking.");
     }
 
+    //Assign pending order to any free bot.
     public boolean assignOrder(Order order){
         Bot bot = chkPendingBot();
         if(bot != null){
@@ -132,12 +144,13 @@ public class Controller {
         return false;
     }
 
+    //Assign pending order to the bot that request for task.
     public void assignOrder(Order order, Bot bot){
         bot.taskCookOrder(order);
         System.out.println("OrderID " + order.intOrderID + " assigned to bot.");
     }
 
-    //Bot with no job request for job in the listPendingOrder
+    //Bot with no job request for job from listPendingOrder.
     public void requestOrder(Bot bot){
         if(listPendingOrder.isEmpty()==false){
             Order order = listPendingOrder.removeFirst();
@@ -146,6 +159,8 @@ public class Controller {
         
     }
 
+    //Check through the stack of bot to see which bot is free
+    // and return the bot.
     private Bot chkPendingBot(){
         Bot bot = null;
 
@@ -159,6 +174,7 @@ public class Controller {
         return bot;
     }
 
+    //Restore the incomplete order to pending list.
     public void restoreOrderToList(Order order){
         int index=0;
         int intFirstNmlOrder = findIndexOfFirstNormalOrder();
@@ -169,7 +185,7 @@ public class Controller {
             return;
         }
 
-        if (order.intLevel){    //if order is vip
+        if (order.intLevel){    //if order is vip, check order infront of normal order
             while(index < intFirstNmlOrder){
                 if(listPendingOrder.get(index).intOrderID < order.intOrderID ){
                     index++;
@@ -182,7 +198,7 @@ public class Controller {
             //then add at last of vip
             listPendingOrder.add(intFirstNmlOrder,order); 
         }
-        else{   //if order is normal
+        else{   //if order is normal, check from first normal order
             index = intFirstNmlOrder;
 
             while(index < listPendingOrder.size()){
@@ -193,7 +209,7 @@ public class Controller {
                     return;
                 }
             }
-            //if after going through whole list this order still largest ID than
+            //if after going through whole list this order still largest ID
             //then add at last of normal
             listPendingOrder.add(listPendingOrder.size()-1,order);
         }
