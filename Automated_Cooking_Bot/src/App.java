@@ -29,22 +29,22 @@ public class App {
             switch(strCommand) {
                 case "New Normal Order":
                     ctrler.addNormalOrder();
-                    //System.out.print("add Normal Order\n\n");
+                    
                     break;
 
                 case "New VIP Order":
                     ctrler.addVIPOrder();
-                    //System.out.print("add Vip Order\n\n");
+                    
                     break;
 
                 case "+ Bot":
                     ctrler.addBot();
-                    //System.out.print("add bot\n\n");
+                    
                     break;
 
                 case "- Bot":
                     ctrler.removeBot();
-                    //System.out.print("remove bot\n\n");
+                   
                     break;
 
                 case "Quit":

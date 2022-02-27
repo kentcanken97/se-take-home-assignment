@@ -1,18 +1,25 @@
 ## Getting Started
+## Requirement
+This appication is build with Java Development Kit 8 and required Java Runtime Enviroment 8 to execute.
+Software Requirement:
+- Java Runtime Enviroment(JRE) 8 or newer.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
 
 ## Folder Structure
 
-The workspace contains two folders by default, where:
+The application consist of 4 java class.
+- App.java
+- Controller.java
+- Bot.java
+- Order.java
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## User Instruction
+This application is a cli application and the following comment is the input to control the application.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+| Command | Functionality |
+|---------|---------------|
+| New Normal Order | Add normal order to pending list. |
+| New VIP Order | Add VIP order to pending list. VIP order will have higher priority over normal order. |
+| + Bot | Add new bot to workforce. |
+| - Bot | Remove the newest added bot from workforce. |
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
