@@ -1,7 +1,5 @@
 package obj;
 
-import java.time.LocalDateTime;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -10,12 +8,13 @@ public class Bot{
     Controller ctrler = Controller.getInstance();
 
     int intWorkingStatus = 0; //0 for pending job, 1 for cooking
-    LocalDateTime ldtOrderReceiveDateTime;
-    Order odrReceivedOrder;
+    Order odrReceivedOrder = null;
+
+    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+
 
     public void taskCookOrder(Order order){
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-
         Runnable taskCooking = () -> {
             order.intStatus = 1;    //Update Order to complete 
             this.intWorkingStatus = 0;
@@ -23,10 +22,20 @@ public class Bot{
             ctrler.requestOrder(this);
         };
         
+        this.odrReceivedOrder = order;
         intWorkingStatus = 1;   //Current Bot status cooking
         //Execute the runnable task after 10 second
         executorService.schedule(taskCooking, 10, TimeUnit.SECONDS);
-        executorService.shutdown();
     }
 
+    public void botForceStop(){
+        executorService.shutdownNow();
+
+        ctrler.restoreOrderToList(odrReceivedOrder);
+        System.out.println("Restored Order with ID " + odrReceivedOrder.intOrderID + " to pending list.");
+    }
+
+    public void botShutdown(){
+        executorService.shutdown();
+    }
 }

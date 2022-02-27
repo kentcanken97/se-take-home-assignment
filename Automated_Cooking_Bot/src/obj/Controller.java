@@ -85,7 +85,7 @@ public class Controller {
             }//else if encounter first normal order
         }
 
-        //if finish whole loop is VIP
+        //Whole list is VIP or list completely empty it will be -1
         pointer = -1;
         return pointer;
     }
@@ -101,6 +101,12 @@ public class Controller {
         if(stkBot.empty()){
             System.out.println("The workforce is empty no bot can be removed.");
         }else{
+            Bot botRemoved = stkBot.peek();
+            if(botRemoved.intWorkingStatus == 1){
+                botRemoved.botForceStop();
+            }else{
+                botRemoved.botShutdown();
+            }
             stkBot.pop();
             System.out.println("Removed the newest bot from workforce.");
         } 
@@ -151,6 +157,46 @@ public class Controller {
         }
 
         return bot;
+    }
+
+    public void restoreOrderToList(Order order){
+        int index=0;
+        int intFirstNmlOrder = findIndexOfFirstNormalOrder();
+
+        // if list completely empty just add
+        if(listPendingOrder.size() == 0) { 
+            listPendingOrder.add(order);
+            return;
+        }
+
+        if (order.intLevel){    //if order is vip
+            while(index < intFirstNmlOrder){
+                if(listPendingOrder.get(index).intOrderID < order.intOrderID ){
+                    index++;
+                }else{
+                    listPendingOrder.add(index,order);
+                    return;
+                } 
+            }
+            //if after going through whole list this order still largest ID than
+            //then add at last of vip
+            listPendingOrder.add(intFirstNmlOrder,order); 
+        }
+        else{   //if order is normal
+            index = intFirstNmlOrder;
+
+            while(index < listPendingOrder.size()){
+                if(listPendingOrder.get(index).intOrderID < order.intOrderID ){
+                    index++;
+                }else{
+                    listPendingOrder.add(index,order);
+                    return;
+                }
+            }
+            //if after going through whole list this order still largest ID than
+            //then add at last of normal
+            listPendingOrder.add(listPendingOrder.size()-1,order);
+        }
     }
 }
 
